@@ -1,0 +1,6 @@
+@UserListApp.Server_HostAddress = http://localhost:5024
+
+GET {{UserListApp.Server_HostAddress}}/
+Accept: application/json
+
+###
