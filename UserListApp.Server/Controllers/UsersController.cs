@@ -6,6 +6,7 @@ namespace UserListApp.Server.Controllers
     public class UsersController : ControllerBase
     {
         [HttpGet]
+        [Route("Users")]
         public ActionResult GetUsers()
         {
             var data = new { data = "a" };
