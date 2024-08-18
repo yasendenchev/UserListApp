@@ -14,36 +14,13 @@ public class UsersController : BaseController
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetUsers()
+    public async Task<ActionResult> GetUsers(
+        [FromQuery] string[]? queryNames,
+        [FromQuery] int? pageNumber,
+        [FromQuery] int? pageSize
+        )
     {
-        var users = await userService.GetAllAsync();
-        return Ok(users);
-    }
-
-    [HttpGet]
-    [Route("search")]
-    public async Task<ActionResult> SearchUsersByNames([FromQuery] string[] names)
-    {
-        var users = await userService.GetByNamesAsync(names);
-
-        return Ok(users);
-    }
-
-    [HttpGet("page")]
-    public async Task<ActionResult> GetPage([FromQuery] int pageNumber, [FromQuery] int pageSize)
-    {
-
-        if (pageNumber < 0)
-        {
-            pageNumber = 0;
-        }
-
-        if (pageSize <= 0)
-        {
-            pageSize = 10;
-        }
-
-        var users = await userService.GetPageAsync(pageNumber, pageSize);
+        var users = await userService.GetUsersAsync(queryNames, pageNumber, pageSize);
 
         return Ok(users);
     }

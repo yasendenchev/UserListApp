@@ -16,12 +16,28 @@ public class UserService : IUserService
         mapper = _mapper;
     }
 
-    public async Task<IEnumerable<UserDTO>> GetAllAsync()
+    public async Task<PagedUsersDTO> GetUsersAsync(string[]? queryNames, int? pageNumber, int? pageSize)
     {
-        var userEntities = await this.userRepository.GetAllAsync();
-        var users = this.mapper.Map<IEnumerable<UserDTO>>(userEntities);
+        if (pageNumber.HasValue && (!pageSize.HasValue || pageSize < 1))
+        {
+            pageSize = 10;
+        }
 
-        return users;
+        if (pageSize.HasValue && (!pageNumber.HasValue || pageNumber < 0))
+        {
+            pageNumber = 0;
+        }
+
+        var (userEntities, totalCount) = await this.userRepository.GetPagedAsync(queryNames, pageNumber.Value, pageSize.Value);
+        var usersDto = this.mapper.Map<IEnumerable<UserDTO>>(userEntities);
+
+        var pagedUsersDto = new PagedUsersDTO
+        {
+            Users = usersDto,
+            TotalCount = totalCount
+        };
+
+        return pagedUsersDto;
     }
 
     public async Task<UserDTO> GetByIdAsync(int id)
@@ -47,28 +63,5 @@ public class UserService : IUserService
     public async Task DeleteAsync(int id)
     {
         await this.userRepository.DeleteAsync(id);
-    }
-
-    public async Task<IEnumerable<UserDTO>> GetByNamesAsync(IEnumerable<string> names)
-    {
-        if (names == null || names.Any() == false)
-        {
-            return await GetAllAsync();
-        }
-
-        var lowerCaseNames = names.Select(x => x.Trim().ToLower()).ToHashSet();
-
-        var userEntities = await this.userRepository.GetByNamesAsync(lowerCaseNames);
-        var filteredUsers = this.mapper.Map<IEnumerable<UserDTO>>(userEntities);
-
-        return filteredUsers;
-    }
-
-    public async Task<IEnumerable<UserDTO>> GetPageAsync(int pageNumber, int pageSize)
-    {
-        var userEntities = await this.userRepository.GetPageAsync(pageNumber, pageSize);
-        var result = this.mapper.Map<IEnumerable<UserDTO>>(userEntities);
-
-        return result;
     }
 }

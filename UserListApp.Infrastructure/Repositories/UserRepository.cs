@@ -8,24 +8,30 @@ namespace UserListApp.Infrastructure.Repositories;
 
 public class UserRepository : Repository<User>, IUserRepository
 {
+
     public UserRepository(UserListAppContext context) : base(context) { }
 
-    public async Task<IEnumerable<User>> GetPageAsync(int pageNumber, int pageSize)
+    public async Task<(IEnumerable<User>, int totalCount)> GetPagedAsync(string[]? queryNames, int pageNumber, int pageSize)
     {
-        var data = await dbSet
+        IQueryable<User> data = dbSet.Select(x => x).AsQueryable<User>();
+        var totalCount = await data.CountAsync();
+
+        if (queryNames != null && queryNames.Length > 0)
+        {
+            data = data
+                .Where(user => queryNames
+                    .Any(name => user.Name
+                        .ToLower()
+                        .Contains(name)
+                ));
+        }
+        
+        data = data
             .Skip(pageNumber * pageSize)
-            .Take(pageSize)
-            .ToListAsync();
+            .Take(pageSize);
 
-        return data;
-    }
+        var users = await data.ToListAsync();
 
-    public async Task<IEnumerable<User>> GetByNamesAsync(IEnumerable<string> names)
-    {
-        var data = await dbSet
-            .Where(x => names.Contains(x.Name.ToLower()))
-            .ToListAsync();
-
-        return data;
+        return (users, totalCount);
     }
 }

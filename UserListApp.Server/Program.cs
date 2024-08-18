@@ -1,21 +1,17 @@
 using UserListApp.Application;
 using UserListApp.Infrastructure;
+using UserListApp.Server;
+using ConfigureWebApiServices = UserListApp.Server.ConfigureServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
-
-//builder.Services.AddSqlServer<UserListAppContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddWebApiServices();
 
 var app = builder.Build();
+
+app.UseCors(ConfigureWebApiServices.CorsPolicy);
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
