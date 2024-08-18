@@ -25,12 +25,14 @@ public class UserRepository : Repository<User>, IUserRepository
                         .Contains(name)
                 ));
         }
-        
+
         data = data
             .Skip(pageNumber * pageSize)
             .Take(pageSize);
 
         var users = await data.ToListAsync();
+
+        totalCount = queryNames != null && queryNames.Length > 0 ? users.Count : totalCount;
 
         return (users, totalCount);
     }

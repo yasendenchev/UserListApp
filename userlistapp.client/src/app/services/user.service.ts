@@ -32,7 +32,7 @@ export class UserService {
   private buildGetAllUsersParams(searchQuery?: string, pageNumber?: number, pageSize?: number) {
     let params: any = {};
     if (searchQuery && searchQuery.length) {
-      params.queryNames = searchQuery.split(',').map(name => name.trim()).join(',');
+      params.queryNames = searchQuery.split(',').map(name => name.trim());
     }
     if (pageNumber !== undefined && pageNumber !== null) {
       params.pageNumber = pageNumber.toString();

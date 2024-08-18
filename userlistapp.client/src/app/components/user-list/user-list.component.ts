@@ -36,6 +36,11 @@ export class UserListComponent implements OnInit {
     );
   }
 
+  search() {
+    this.pageNumber = 0;
+    this.loadUsers();
+  }
+
   openUserForm(isEditMode: boolean, user?: User): void {
     this.userFormComponent!.openModal(isEditMode, user);
   }
