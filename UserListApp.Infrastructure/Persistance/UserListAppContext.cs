@@ -1,21 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UserListApp.Infrastructure.Entities;
+using UserListApp.Domain.Entities;
 
-namespace UserListApp.Infrastructure.Persistance
+namespace UserListApp.Infrastructure.Persistance;
+
+public class UserListAppContext : DbContext
 {
-    public class UserListAppContext : DbContext
+    public UserListAppContext(DbContextOptions<UserListAppContext> options) : base(options)
     {
-        public UserListAppContext(DbContextOptions<UserListAppContext> options) : base(options)
-        {
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<User>().HasData(DataSeed.Users);
-        }
-
-        public DbSet<User> Users { get; set; }
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<User>().HasData(DataSeed.Users);
+    }
+
+    public DbSet<User> Users { get; set; }
 }

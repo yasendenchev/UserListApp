@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UserListApp.Application\UserListApp.Application.csproj" />
     <ProjectReference Include="..\userlistapp.client\userlistapp.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

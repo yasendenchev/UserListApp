@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace UserListApp.Server.Controllers
+namespace UserListApp.Server.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class BaseController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BaseController : ControllerBase
-    {
-    }
 }

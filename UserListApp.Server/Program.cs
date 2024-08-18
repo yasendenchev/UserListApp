@@ -1,12 +1,15 @@
-using Microsoft.EntityFrameworkCore;
-using UserListApp.Infrastructure.Persistance;
+using UserListApp.Application;
+using UserListApp.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 
-builder.Services.AddSqlServer<UserListAppContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationServices();
+
+//builder.Services.AddSqlServer<UserListAppContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
