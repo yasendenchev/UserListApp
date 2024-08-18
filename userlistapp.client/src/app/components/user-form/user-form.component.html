@@ -1,0 +1,21 @@
+<div class="modal" *ngIf="isVisible">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <h2>{{ isEditMode ? 'Edit User' : 'Create User' }}</h2>
+    <form [formGroup]="userForm" (ngSubmit)="submit()">
+      <div>
+        <label>Name:</label>
+        <input formControlName="name" />
+      </div>
+      <div>
+        <label>Email:</label>
+        <input formControlName="email" />
+      </div>
+      <div>
+        <label>Phone:</label>
+        <input formControlName="phone" />
+      </div>
+      <button type="submit">{{ isEditMode ? 'Update' : 'Create' }} User</button>
+    </form>
+  </div>
+</div>

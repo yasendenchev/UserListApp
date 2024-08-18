@@ -1,0 +1,33 @@
+<div class="search-container">
+  <input [(ngModel)]="searchQuery" placeholder="Search users by name" />
+  <button (click)="loadUsers()">Search</button>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.phone }}</td>
+      <td>
+        <button (click)="deleteUser(user.id!)"><i class="bi bi-trash3"></i></button>
+        <button (click)="openUserForm(true, user)"><i class="bi bi-pencil"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Pagination Controls -->
+<div class="pagination-controls">
+  <button (click)="onPageChange(pageNumber - 1)" [disabled]="pageNumber === 0"><</button>
+  <span>Page {{ pageNumber + 1 }}</span>
+  <button (click)="onPageChange(pageNumber + 1)" [disabled]="(pageNumber + 1) * pageSize >= totalUsers">></button>
+</div>
