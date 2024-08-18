@@ -2,7 +2,7 @@
 using UserListApp.Application.DTO;
 using UserListApp.Domain.Entities;
 
-namespace OnlineShop.Application.Common.Mappings;
+namespace UserListApp.Application.Common.Mappings;
 
 public class MappingProfile : Profile
 {
