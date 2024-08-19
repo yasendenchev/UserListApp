@@ -15,7 +15,6 @@ describe('UserListComponent', () => {
   let mockToastrService: jasmine.SpyObj<ToastrService>;
 
   beforeEach(async () => {
-
     mockUserService = jasmine.createSpyObj('UserService', ['getAllUsers', 'deleteUser']);
     mockToastrService = jasmine.createSpyObj('ToastrService', ['error', 'success']);
 
@@ -40,7 +39,6 @@ describe('UserListComponent', () => {
     let mockPagedUsers: PagedUsers;
 
     beforeEach(() => {
-      // Initialize mockPagedUsers before each test
       mockPagedUsers = {
         users: [
           {

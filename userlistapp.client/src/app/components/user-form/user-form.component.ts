@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./user-form.component.css']
 })
 export class UserFormComponent implements OnInit {
-  userForm: FormGroup;
+  userForm!: FormGroup;
   isEditMode: boolean = false;
   isVisible: boolean = false;
   userId?: number;
@@ -20,16 +20,15 @@ export class UserFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private toastr: ToastrService
-  ) {
+    private toastr: ToastrService,
+  ) { }
+
+  ngOnInit(): void {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required]],
       phoneNumber: ['', Validators.required]
     });
-  }
-
-  ngOnInit(): void {
   }
 
   openModal(isEditMode: boolean, user?: User): void {
