@@ -1,24 +1,27 @@
-# UserListApp
+# UserlistappClient
 
-Welcome to **UserListApp**! You can view users in a paged format and perform various operations such as adding, updating, and deleting users. Additionally, you can search for users by multiple names separated by commas.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.1.
 
-## Technologies Used
+## Development server
 
-### Front-End
-- **Angular 18**: For building the user interface and handling user interactions.
-- **TypeScript**: Provides static typing for better code quality and maintainability.
-- **CSS**: For styling and layout of the application.
-- **HTML**: For structuring the content of the application.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-#### Testing
-- **Karma**: Test runner for running the Angular unit tests.
-- **Jasmine**: Behavior-driven development framework for testing Angular applications.
+## Code scaffolding
 
-### Back-End
-- **.NET 8 WebAPI**: To build the RESTful API that the front-end communicates with.
-- **EntityFrameworkCore**: For database access and management.
-- **AutoMapper**: To map between domain models and data transfer objects.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-#### Testing
-- **NUnit**: Framework for writing and running unit tests in .NET.
-- **Moq**: Mocking framework for creating mock objects in unit tests.
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
