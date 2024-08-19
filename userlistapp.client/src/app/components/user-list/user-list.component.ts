@@ -14,7 +14,7 @@ export class UserListComponent implements OnInit {
   users: User[] = [];
   searchQuery: string = '';
   pageNumber: number = 0;
-  pageSize: number = 2;
+  pageSize: number = 10;
   totalUsers: number = 0;
   @ViewChild(UserFormComponent) userFormComponent!: UserFormComponent;
 
@@ -46,6 +46,11 @@ export class UserListComponent implements OnInit {
     );
   }
 
+  onPageSizeChange() {
+    this.pageNumber = 0;
+    this.loadUsers();
+  }
+
   search() {
     this.pageNumber = 0;
     this.loadUsers();
@@ -62,7 +67,9 @@ export class UserListComponent implements OnInit {
         if (this.users.length === 1) {
           this.onPageChange(this.pageNumber - 1);
         }
-        this.loadUsers();
+        else {
+          this.loadUsers();
+        }
       },
       error: (error) => {
         this.toastr.error(error, 'Failed to delete user');

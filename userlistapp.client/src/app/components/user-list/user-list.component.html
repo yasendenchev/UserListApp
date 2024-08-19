@@ -6,8 +6,17 @@
         <button (click)="search()" class="btn btn-primary btn-sm">Search</button>
       </div>
     </div>
-    <div class="col-md-6 text-end">
+    <div class="col-md-3 text-end">
       <button (click)="openUserForm(false)" class="btn btn-success btn-sm">Add User</button>
+    </div>
+    <div class="col-md-3 page-size-container">
+      <label for="pageSize">Page Size: </label>
+      <select id="pageSize" [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange()" class="form-select form-select-sm w-auto">
+        <option [value]="2">2</option>
+        <option [value]="5">5</option>
+        <option [value]="10">10</option>
+        <option [value]="20">20</option>
+      </select>
     </div>
   </div>
 

@@ -122,3 +122,12 @@ button:hover {
 .pagination-controls span {
   margin: 0 12px;
 }
+
+#pageSize { 
+  display:inline-block;
+  margin-left: 10px;
+}
+
+.page-size-container { 
+  text-align: right
+}
