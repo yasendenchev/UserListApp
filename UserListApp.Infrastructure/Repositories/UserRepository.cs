@@ -14,7 +14,6 @@ public class UserRepository : Repository<User>, IUserRepository
     public async Task<(IEnumerable<User>, int totalCount)> GetPagedAsync(string[]? queryNames, int pageNumber, int pageSize)
     {
         IQueryable<User> data = dbSet.Select(x => x).AsQueryable<User>();
-        var totalCount = await data.CountAsync();
 
         if (queryNames != null && queryNames.Length > 0)
         {
@@ -26,13 +25,13 @@ public class UserRepository : Repository<User>, IUserRepository
                 ));
         }
 
+        var totalCount = await data.CountAsync();
+
         data = data
             .Skip(pageNumber * pageSize)
             .Take(pageSize);
 
         var users = await data.ToListAsync();
-
-        totalCount = queryNames != null && queryNames.Length > 0 ? users.Count : totalCount;
 
         return (users, totalCount);
     }
