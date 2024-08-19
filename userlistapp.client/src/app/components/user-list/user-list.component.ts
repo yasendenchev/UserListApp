@@ -47,13 +47,11 @@ export class UserListComponent implements OnInit {
   }
 
   onPageSizeChange() {
-    this.pageNumber = 0;
-    this.loadUsers();
+    this.reloadUsers();
   }
 
   search() {
-    this.pageNumber = 0;
-    this.loadUsers();
+    this.reloadUsers();
   }
 
   openUserForm(isEditMode: boolean, user?: User): void {
@@ -79,6 +77,11 @@ export class UserListComponent implements OnInit {
 
   onPageChange(pageNumber: number) {
     this.pageNumber = pageNumber;
+    this.loadUsers();
+  }
+
+  private reloadUsers() {
+    this.pageNumber = 0;
     this.loadUsers();
   }
 }
