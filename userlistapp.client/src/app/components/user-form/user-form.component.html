@@ -1,21 +1,32 @@
-<div class="modal" *ngIf="isVisible">
-  <div class="modal-content">
-    <span class="close" (click)="closeModal()">&times;</span>
-    <h2>{{ isEditMode ? 'Edit User' : 'Create User' }}</h2>
-    <form [formGroup]="userForm" (ngSubmit)="submit()">
-      <div>
-        <label>Name:</label>
-        <input formControlName="name" />
+
+<div class="modal" *ngIf="isVisible" tabindex="-1" [ngClass]="{ 'd-block': isVisible }" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ isEditMode ? 'Edit User' : 'Create User' }}</h5>
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div>
-        <label>Email:</label>
-        <input formControlName="email" />
+      <div class="modal-body">
+        <form [formGroup]="userForm" (ngSubmit)="submit()">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input id="name" type="text" formControlName="name" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input id="email" type="email" formControlName="email" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input id="phone" type="tel" formControlName="phoneNumber" class="form-control" />
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update' : 'Create' }} User</button>
+          </div>
+        </form>
       </div>
-      <div>
-        <label>Phone:</label>
-        <input formControlName="phoneNumber" />
-      </div>
-      <button type="submit">{{ isEditMode ? 'Update' : 'Create' }} User</button>
-    </form>
+    </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +15,8 @@ export class UserFormComponent implements OnInit {
   isVisible: boolean = false;
   userId?: number;
 
+  @Output() formClosed: EventEmitter<void> = new EventEmitter<void>();
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -27,7 +29,8 @@ export class UserFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   openModal(isEditMode: boolean, user?: User): void {
     this.isEditMode = isEditMode;
@@ -43,6 +46,7 @@ export class UserFormComponent implements OnInit {
 
   closeModal(): void {
     this.isVisible = false;
+    this.formClosed.emit();
   }
 
   submit() {
@@ -54,24 +58,25 @@ export class UserFormComponent implements OnInit {
     const user: User = this.userForm.value;
 
     if (this.isEditMode) {
+      user.id = this.userId;
       this.userService.updateUser(this.userId!, user).subscribe(
-        () => {
-          this.toastr.success('User updated successfully');
-          this.userForm.reset();
-          this.isEditMode = false;
-        },
-        (error) => {
-          this.toastr.error(error, 'Failed to update user');
+        {
+          next: () => {
+            this.toastr.success('User updated successfully');
+            this.closeModal()
+          },
+          error: (error) => this.displayErrorMessages(error)
         }
       );
     } else {
       this.userService.addUser(user).subscribe(
-        () => {
-          this.toastr.success('User created successfully');
-          this.userForm.reset();
-        },
-        (error) => {
-          this.toastr.error(error, 'Failed to create user');
+        {
+          next: () => {
+            this.toastr.success('User created successfully');
+            this.userForm.reset();
+            this.closeModal();
+          },
+          error: (error) => this.displayErrorMessages(error)
         }
       );
     }
@@ -81,5 +86,10 @@ export class UserFormComponent implements OnInit {
     this.isEditMode = true;
     this.userId = user.id;
     this.userForm.patchValue(user);
+  }
+
+  private displayErrorMessages(error: any) {
+    let errors = Object.values(error.error.errors).flatMap(arr => arr).join('<br/>');
+    this.toastr.error(errors, 'Failed to create user:');
   }
 }

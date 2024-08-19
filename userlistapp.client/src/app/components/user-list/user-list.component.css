@@ -20,7 +20,7 @@ Ensure the whole page is centered body {
   width: 200px;
 }
 
-.search-container button {
+.search-container .search {
   padding: 8px 16px;
   font-size: 16px;
   margin-left: 8px;
@@ -36,7 +36,6 @@ Ensure the whole page is centered body {
 }
 
 table {
-  width: 80%;
   margin: 0 auto;
   border-collapse: collapse;
 }
@@ -61,15 +60,20 @@ tr:hover {
 }
 
 button {
-  background: none;
-  border: none;
   cursor: pointer;
   padding: 8px;
   font-size: 18px;
 }
 
+.delete-btn {
+  margin-right: 10px;
+}
+
+.add-btn {
+  margin-left: 30px;
+}
+
 button:hover {
-  background-color: #eaeaea;
   border-radius: 4px;
 }
 

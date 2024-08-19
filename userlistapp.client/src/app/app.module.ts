@@ -21,7 +21,9 @@ import { UserFormComponent } from './components/user-form/user-form.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      enableHtml: true
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

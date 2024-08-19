@@ -18,20 +18,30 @@ export class UserListComponent implements OnInit {
   totalUsers: number = 0;
   @ViewChild(UserFormComponent) userFormComponent!: UserFormComponent;
 
-  constructor(private userService: UserService, private toastr: ToastrService) {}
+  constructor(private userService: UserService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.loadUsers();
   }
 
+  ngAfterViewInit() {
+    if (this.userFormComponent) {
+      this.userFormComponent.formClosed.subscribe(() => {
+        this.loadUsers();
+      });
+    }
+  }
+
   loadUsers() {
     this.userService.getAllUsers(this.searchQuery, this.pageNumber, this.pageSize).subscribe(
-      (response: PagedUsers) => {
-        this.users = response.users;
-        this.totalUsers = response.totalCount;
-      },
-      (error) => {
-        this.toastr.error(error, 'Failed to load users');
+      {
+        next: (response: PagedUsers) => {
+          this.users = response.users;
+          this.totalUsers = response.totalCount;
+        },
+        error: (error) => {
+          this.toastr.error(error, 'Failed to load users');
+        }
       }
     );
   }
@@ -46,15 +56,18 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe(
-      () => {
+    this.userService.deleteUser(id).subscribe({
+      next: () => {
         this.toastr.success('User deleted successfully');
+        if (this.users.length === 1) {
+          this.onPageChange(this.pageNumber - 1);
+        }
         this.loadUsers();
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error(error, 'Failed to delete user');
       }
-    );
+    })
   }
 
   onPageChange(pageNumber: number) {
