@@ -26,8 +26,8 @@
         <td>{{ user.email }}</td>
         <td>{{ user.phoneNumber }}</td>
         <td colspan="2">
-          <button (click)="deleteUser(user.id!)" class="btn btn-danger delete-btn"><i class="bi bi-trash3"></i></button>
-          <button (click)="openUserForm(true, user)" class="btn btn-success"><i class="bi bi-pencil"></i></button>
+          <button (click)="openUserForm(true, user)" class="btn btn-warning edit-btn"><i class="bi bi-pencil"></i></button>
+          <button (click)="deleteUser(user.id!)" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
         </td>
       </tr>
     </tbody>
