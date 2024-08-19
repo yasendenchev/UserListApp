@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -17,7 +17,6 @@ import { UserFormComponent } from './components/user-form/user-form.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -25,7 +24,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
       enableHtml: true
     })
   ],
-  providers: [],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
