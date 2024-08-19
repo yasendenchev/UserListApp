@@ -40,14 +40,6 @@ public class UserService : IUserService
         return pagedUsersDto;
     }
 
-    public async Task<UserDTO> GetByIdAsync(int id)
-    {
-        var entity = await this.userRepository.GetByIdAsync(id);
-        var user = this.mapper.Map<UserDTO>(entity);
-
-        return user;
-    }
-
     public async Task AddAsync(UserDTO user)
     {
         var entity = this.mapper.Map<User>(user);
